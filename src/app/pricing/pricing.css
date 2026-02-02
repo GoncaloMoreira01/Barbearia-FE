@@ -4,12 +4,10 @@
   gap: 30px;
   justify-content: center;
   padding: 60px 40px;
-  background: #f9f9f9;
 }
 
 .card {
-  background: #f9f9f9;
-  border: 2px solid #c92a2a;
+  border: 2px solid var(--red-color);
   border-radius: 15px;
   overflow: hidden;
   width: 350px;
@@ -39,13 +37,13 @@
 .card-title {
   font-size: 24px;
   font-weight: 800;
-  color: #c92a2a;
+  color: var(--red-color);
   margin-bottom: 10px;
   text-transform: uppercase;
 }
 
 .card-price {
-  color: #c92a2a;
+  color: var(--red-color);
   font-weight: bold;
   text-align: center;
   margin-bottom: 10px;
@@ -60,8 +58,8 @@
 
 .card-button {
   background: transparent;
-  border: 2px solid #c92a2a;
-  color: #c92a2a;
+  border: 2px solid var(--red-color);
+  color: var(--red-color);
   padding: 10px 25px;
   font-size: 16px;
   font-weight: 700;
@@ -72,6 +70,6 @@
 }
 
 .card-button:hover {
-  background: #c92a2a;
+  background: var(--red-color);
   color: #fff;
 }

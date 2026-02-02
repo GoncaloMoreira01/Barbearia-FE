@@ -1,0 +1,10 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+:root {
+  --red-color: #c92a2a;
+  --gold-color: #FFD400;
+  --background-color: #f9f9f9;
+}
