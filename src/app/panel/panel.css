@@ -1,0 +1,36 @@
+.subTitle{
+    text-align: center;
+    color: var(--red-color);
+}
+
+.toolbar-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 100px;
+  padding: 8px 10px;
+}
+
+.btn-red {
+    margin-top: -1;
+    background-color: var(--red-color);
+    color: #fff;
+    border: none;
+    padding: 20px 10px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(201, 42, 42, 0.25);
+    min-width: 100px;
+}
+
+.btn-red:hover {
+    background-color: #b02525;
+    box-shadow: 0 8px 18px rgba(201, 42, 42, 0.35);
+}
+
+.btn-red:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(201, 42, 42, 0.4);
+}
