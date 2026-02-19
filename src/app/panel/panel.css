@@ -34,3 +34,13 @@
     outline: none;
     box-shadow: 0 0 0 3px rgba(201, 42, 42, 0.4);
 }
+
+/* CSS for third tab (Review) */
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.textAreaDiv {
+    margin: 3rem;
+}
