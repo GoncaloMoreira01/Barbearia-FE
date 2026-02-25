@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ApiEndpoints } from '../constants/ApiEndpointsEnum';
+import { Authentication, LoggedUser } from "../services/authentication"
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { ApiEndpoints } from '../constants/ApiEndpointsEnum';
   styleUrls: ['./login.css']
 })
 export class Login {
-  constructor(private http: HttpClient) {} // equivale a fazer constructor(http: HttpClient) { this.http = http; }
+  constructor(private http: HttpClient, private auth: Authentication) {} // equivale a fazer constructor(http: HttpClient) { this.http = http; }
 
   login(form: NgForm) {
     const wrongCredentialsDiv = document.getElementById("wrongCredentials") as HTMLElement;
@@ -19,9 +20,12 @@ export class Login {
     if (form.valid) {
       const { email, password } = form.value;
 
-      this.http.post(ApiEndpoints.USER_LOGIN, { email, password })
+      this.http.post<LoggedUser>(ApiEndpoints.USER_LOGIN, { email, password })
         .subscribe({
-          next: res => console.log('Login successful', res),
+          next: response => {
+            console.log('Login successful')
+            this.auth.setUserLogged(response);
+          },
            error: err => {
             console.error('Login failed', err);
             wrongCredentialsDiv.style.display = "initial";
