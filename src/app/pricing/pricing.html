@@ -10,7 +10,7 @@
         Corte atemporal com precisão, para quem valoriza tradição e estilo.
       </p>
       <h3 class="card-price">10€</h3>
-      <button class="card-button">Agendar</button>
+      <button class="card-button" [routerLink]="auth.isUserLoggedIn() ? '/panel' : '/login'">Agendar</button>
     </div>
   </div>
 
@@ -24,7 +24,7 @@
         Definimos a sua barba com precisão e estilo, deixando cada detalhe impecável.
       </p>
       <h3 class="card-price">7€</h3>
-      <button class="card-button">Agendar</button>
+      <button class="card-button" [routerLink]="auth.isUserLoggedIn() ? '/panel' : '/login'">Agendar</button>
     </div>
   </div>
 
@@ -38,7 +38,7 @@
         Transforme seu visual com precisão total. Estilo que marca presença e não deixa ninguém passar despercebido.
       </p>
       <h3 class="card-price">16€</h3>
-      <button class="card-button">Agendar</button>
+      <button class="card-button" [routerLink]="auth.isUserLoggedIn() ? '/panel' : '/login'">Agendar</button>
     </div>
   </div>
 </div>

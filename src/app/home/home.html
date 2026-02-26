@@ -8,7 +8,7 @@
       <p class="lead my-4">Ao longo dos anos, A Barbearia tornou-se um espaço de referência, onde o corte de cabelo e o cuidado da barba vão muito além de um simples serviço. Aqui, cada cliente é recebido com atenção personalizada, num ambiente acolhedor que respeita os rituais clássicos da barbearia, sem nunca perder de vista as tendências atuais.</p>
       <p class="lead my-4">A paixão pelo ofício, a formação contínua da equipa e o uso de produtos de elevada qualidade refletem o compromisso com a excelência. Mais do que uma barbearia, este é um ponto de encontro para quem valoriza estilo, autenticidade e uma experiência genuína, marcada pelo rigor, pelo detalhe e pelo respeito pela tradição.</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <button class="buttonSchedule" type="button">Marcação</button>
+          <button class="buttonSchedule" type="button" [routerLink]="auth.isUserLoggedIn() ? '/panel' : '/login'">Marcação</button>
       </div>
     </div>
   </div>

@@ -44,7 +44,7 @@
               {{ auth.getUserLogged()?.name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item">Painel</a>
+              <a class="dropdown-item" style="cursor: pointer;" routerLink="/panel">Meus Dados</a>
               <a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Logout</a>
             </div>
           </li>

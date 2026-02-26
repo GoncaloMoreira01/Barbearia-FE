@@ -3,6 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ApiEndpoints } from '../constants/ApiEndpointsEnum';
 import { Authentication, LoggedUser } from "../services/authentication"
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { Authentication, LoggedUser } from "../services/authentication"
   styleUrls: ['./login.css']
 })
 export class Login {
-  constructor(private http: HttpClient, private auth: Authentication) {} // equivale a fazer constructor(http: HttpClient) { this.http = http; }
+  constructor(private http: HttpClient, private auth: Authentication, private router: Router) {} // equivale a fazer constructor(http: HttpClient) { this.http = http; }
 
   login(form: NgForm) {
     const wrongCredentialsDiv = document.getElementById("wrongCredentials") as HTMLElement;
@@ -25,6 +26,7 @@ export class Login {
           next: response => {
             console.log('Login successful')
             this.auth.setUserLogged(response);
+            this.router.navigate(["/home"])
           },
            error: err => {
             console.error('Login failed', err);
