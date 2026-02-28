@@ -138,11 +138,23 @@
       Quer ajudar-nos? Deixe a sua opinião sobre a nossa barbearia
       <i class="fa-solid fa-star" style="color: var(--gold-color);"></i> 
     </h2>
+    <div class="d-flex align-items-center justify-content-center mt-3">
+      <div class="star-rating">
+          <input type="radio" [value]="1" [(ngModel)]="rating"><i></i>
+          <input type="radio" [value]="2" [(ngModel)]="rating"><i></i>
+          <input type="radio" [value]="3" [(ngModel)]="rating"><i></i>
+          <input type="radio" [value]="4" [(ngModel)]="rating"><i></i>
+          <input type="radio" [value]="5" [(ngModel)]="rating"><i></i>
+      </div>
+    </div>
     <div class="textAreaDiv">
-      <textarea class="form-control text-area" rows="3"></textarea>
+      <textarea class="form-control text-area" [(ngModel)]="reviewText" rows="3"></textarea>
+    </div>
+    <div class="mt-2 d-flex align-items-center justify-content-center">
+      <p id="errorMsg">Escreva o que acha da nossa Barbearia!</p>
     </div>
     <div class="center">
-      <button class="btn-red">Enviar</button>
+      <button class="btn-red" (click)="submitReview()">Enviar</button>
     </div>
   </mat-tab>
 </mat-tab-group>
