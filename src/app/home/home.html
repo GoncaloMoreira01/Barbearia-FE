@@ -22,14 +22,23 @@
   </h2>
   <h4 class="quote-icon">&ldquo;</h4>
   <div class="testimonial-slider">
-    <button class="arrow left" id="prev">&#10094;</button>
-
-    <div class="testimonial-wrapper" id="testimonial-wrapper">
-      <div class="testimonial-card">
-        <p class="message">omg ca puta de barbearia ai oh mano</p>
-        <h4 class="name">João Silva</h4>
+    @if (testimonials$ | async; as testimonials) {
+      <button class="arrow left" (click)="prev(testimonials.length)"> &#10094; </button>
+      <div class="testimonial-wrapper">
+        @if (testimonials.length > 0) {
+          <div class="testimonial-card">
+            <p class="message">
+              {{ testimonials[currentIndex].description }}
+            </p>
+            <h4 class="name"> {{ testimonials[currentIndex].userName }}</h4>
+          </div>
+        } @else {
+          <div class="testimonial-card">
+            <p class="message">Ainda ninguém deu uma avaliação, sê o primeiro!</p>
+          </div>
+        }
       </div>
-    </div>
-    <button class="arrow right" id="next">&#10095;</button>
+      <button class="arrow right" (click)="next(testimonials.length)"> &#10095; </button>
+    }
   </div>
 </section>

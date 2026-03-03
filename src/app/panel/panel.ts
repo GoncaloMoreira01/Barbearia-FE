@@ -24,7 +24,7 @@ export interface Testimonial {
   providers: [provideNativeDateAdapter(), 
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
-  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatTab, MatTabGroup, MatDivider, MatExpansionModule, FormsModule, Authentication],
+  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatTab, MatTabGroup, MatDivider, MatExpansionModule, FormsModule],
   templateUrl: './panel.html',
   styleUrl: './panel.css',
 })
@@ -32,24 +32,24 @@ export class Panel {
   constructor(private http: HttpClient, public auth: Authentication) {}
 
   rating: number = 0;
-  reviewText: string = '';
+  description: string = '';
 
   submitReview() {
     const testimonial = {
     userId: this.auth.getUserLogged()?.id,
     stars: this.rating,
-    review: this.reviewText
+    description: this.description
     };
 
     const errorMsg = document.getElementById("errorMsg") as HTMLElement;
     errorMsg.style.display = "none";
 
-    if (this.reviewText == '') {
+    if (this.description == '') {
       errorMsg.style.display = "initial";
       return;
     }
 
-    this.http.post<string>(ApiEndpoints.CREATE_TESTIMONIAL, { testimonial })
+    this.http.post<string>(ApiEndpoints.CREATE_TESTIMONIAL, testimonial)
       .subscribe({
         next: response => {
           console.log('testimonial created')
