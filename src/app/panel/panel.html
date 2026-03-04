@@ -64,6 +64,17 @@
   <mat-tab label="Agendar">
     <h2 class="subTitle mt-2">Escolha a data para a sua marcação</h2>
     <div class="toolbar-row">
+      <mat-form-field>
+        <mat-label>Choose Barber</mat-label>
+        <mat-select>
+          @if (barbers$ | async; as barbers) {
+            @for (barber of barbers; track barber) {
+              <mat-option [value]="barber.id">{{barber.name}}</mat-option>
+            }
+          }
+        </mat-select>
+      </mat-form-field>
+
       <mat-form-field appearance="fill" class="date-field">
         <mat-label>Choose a date</mat-label>
         <input matInput [matDatepicker]="pickerSchedule">

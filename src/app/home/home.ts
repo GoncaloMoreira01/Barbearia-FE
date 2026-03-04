@@ -29,7 +29,7 @@ export class Home implements OnInit {
   currentIndex = 0;
 
   ngOnInit() {
-   this.testimonials$ = this.http.post<Testimonial[]>(ApiEndpoints.GET_TESTIMONIALS, null);
+   this.testimonials$ = this.http.get<Testimonial[]>(ApiEndpoints.GET_TESTIMONIALS);
   }
 
   next(total: number) {
