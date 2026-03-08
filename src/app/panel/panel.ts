@@ -16,6 +16,10 @@ import { HttpClient } from '@angular/common/http';
 import { ApiEndpoints } from '../constants/ApiEndpointsEnum';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatChipListbox, MatChipOption } from '@angular/material/chips';
+
 
 export interface Testimonial {
   userId: number;
@@ -33,21 +37,44 @@ export interface Barber {
   providers: [provideNativeDateAdapter(), 
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
-  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSelect, MatOption, MatTab, MatTabGroup, MatDivider, MatExpansionModule, FormsModule, AsyncPipe],
+  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSelect, MatOption, MatTab, MatTabGroup, MatDivider, MatExpansionModule, FormsModule, AsyncPipe, ReactiveFormsModule, MatChipListbox, MatChipOption],
   templateUrl: './panel.html',
   styleUrl: './panel.css',
 })
 
 export class Panel {
-  constructor(private http: HttpClient, public auth: Authentication) {}
+  constructor(private http: HttpClient, public auth: Authentication, private fb: FormBuilder) {}
 
   rating: number = 0;
   description: string = '';
+
   barbers$!: Observable<Barber[]>;
+  getAvailableDatesForBarberForm!: FormGroup;
+  availableSlotsList$!: Observable<string[]>;
 
   ngOnInit() {
      this.barbers$ = this.http.get<Barber[]>(ApiEndpoints.GET_BARBERS);
+     this.getAvailableDatesForBarberForm = this.fb.group({
+      barberId: [''],
+      scheduleDate: ['']
+    });
   }
+
+  getAvailableDatesForBarber() {
+  const barberId = this.getAvailableDatesForBarberForm.get('barberId')?.value;
+  const scheduleDate = this.getAvailableDatesForBarberForm.get('scheduleDate')?.value;
+  const formattedDate = scheduleDate
+    ? scheduleDate.toISOString().split('T')[0]
+    : '';
+
+  this.availableSlotsList$ = this.http.get<string[]>(ApiEndpoints.GET_AVAILABLE_DATES_FOR_BARBER, {
+    params: {
+      barberId: barberId,
+      scheduleDate: formattedDate
+    }
+  });
+
+}
 
   submitReview() {
     const testimonial = {
