@@ -19,6 +19,9 @@ import { AsyncPipe } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
+import { Appointements } from '../services/appointements';
+import { map } from 'rxjs/operators';
+
 
 
 export interface Testimonial {
@@ -43,7 +46,7 @@ export interface Barber {
 })
 
 export class Panel {
-  constructor(private http: HttpClient, public auth: Authentication, private fb: FormBuilder) {}
+  constructor(private http: HttpClient, public auth: Authentication, private fb: FormBuilder, private appointementsService: Appointements) {}
 
   rating: number = 0;
   description: string = '';
@@ -62,18 +65,15 @@ export class Panel {
 
   getAvailableDatesForBarber() {
   const barberId = this.getAvailableDatesForBarberForm.get('barberId')?.value;
-  const scheduleDate = this.getAvailableDatesForBarberForm.get('scheduleDate')?.value;
-  const formattedDate = scheduleDate
+  let scheduleDate = this.getAvailableDatesForBarberForm.get('scheduleDate')?.value;
+  scheduleDate = scheduleDate
     ? scheduleDate.toISOString().split('T')[0]
     : '';
 
-  this.availableSlotsList$ = this.http.get<string[]>(ApiEndpoints.GET_AVAILABLE_DATES_FOR_BARBER, {
-    params: {
-      barberId: barberId,
-      scheduleDate: formattedDate
-    }
-  });
-
+  this.availableSlotsList$ = this.appointementsService.getAvailableDatesForBarber(barberId, scheduleDate)
+  .pipe(
+    map(slots => slots.map(slot => slot.slice(slot.indexOf("T") + 1, slot.indexOf("T") + 6)))
+  );
 }
 
   submitReview() {
