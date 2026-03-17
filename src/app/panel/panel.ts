@@ -14,21 +14,16 @@ import { FormsModule } from '@angular/forms';
 import { Authentication } from '../services/authentication';
 import { HttpClient } from '@angular/common/http';
 import { ApiEndpoints } from '../constants/ApiEndpointsEnum';
+import { barberServices } from '../constants/BarberServiceType';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
 import { Appointements } from '../services/appointements';
-import { map } from 'rxjs/operators';
-
-
-
-export interface Testimonial {
-  userId: number;
-  stars: number;
-  review: string;
-}
+import { Testimonial } from '../services/testimonial';
+import { TestimonialObject } from '../models/TestimonialObject';
+import { map, startWith  } from 'rxjs/operators';
 
 export interface Barber {
   id: number;
@@ -46,7 +41,7 @@ export interface Barber {
 })
 
 export class Panel {
-  constructor(private http: HttpClient, public auth: Authentication, private fb: FormBuilder, private appointementsService: Appointements) {}
+  constructor(private http: HttpClient, public auth: Authentication, private fb: FormBuilder, private appointementsService: Appointements, private testimonialService: Testimonial) {}
 
   rating: number = 0;
   description: string = '';
@@ -54,6 +49,7 @@ export class Panel {
   barbers$!: Observable<Barber[]>;
   getAvailableDatesForBarberForm!: FormGroup;
   availableSlotsList$!: Observable<string[]>;
+  services = barberServices;
 
   ngOnInit() {
      this.barbers$ = this.http.get<Barber[]>(ApiEndpoints.GET_BARBERS);
@@ -64,21 +60,27 @@ export class Panel {
   }
 
   getAvailableDatesForBarber() {
-  const barberId = this.getAvailableDatesForBarberForm.get('barberId')?.value;
-  let scheduleDate = this.getAvailableDatesForBarberForm.get('scheduleDate')?.value;
-  scheduleDate = scheduleDate
-    ? scheduleDate.toISOString().split('T')[0]
-    : '';
+    const barberId = this.getAvailableDatesForBarberForm.get('barberId')?.value;
+    let scheduleDate = this.getAvailableDatesForBarberForm.get('scheduleDate')?.value;
+    scheduleDate = scheduleDate
+      ? scheduleDate.toISOString().split('T')[0]
+      : '';
 
-  this.availableSlotsList$ = this.appointementsService.getAvailableDatesForBarber(barberId, scheduleDate)
-  .pipe(
-    map(slots => slots.map(slot => slot.slice(slot.indexOf("T") + 1, slot.indexOf("T") + 6)))
-  );
-}
+    this.availableSlotsList$ = this.appointementsService.getAvailableDatesForBarber(barberId, scheduleDate)
+    .pipe(
+      map(slots => slots.map(slot => slot.slice(slot.indexOf("T") + 1, slot.indexOf("T") + 6))),
+      startWith([])
+    );
+  }
 
   submitReview() {
-    const testimonial = {
-    userId: this.auth.getUserLogged()?.id,
+    const user = this.auth.getUserLogged();
+    if (!user) {
+      throw new Error("User not logged in");
+    }
+
+    const testimonial: TestimonialObject = {
+    userId: user.id,
     stars: this.rating,
     description: this.description
     };
@@ -91,15 +93,6 @@ export class Panel {
       return;
     }
 
-    this.http.post<string>(ApiEndpoints.CREATE_TESTIMONIAL, testimonial)
-      .subscribe({
-        next: response => {
-          console.log('testimonial created')
-          
-        },
-        error: err => {
-        console.error('testimonial creation failed', err);
-        }
-    });
+    this.testimonialService.createTestimonial(testimonial)
   }
 }

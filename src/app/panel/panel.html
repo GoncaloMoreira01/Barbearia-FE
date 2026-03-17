@@ -62,7 +62,7 @@
   </mat-tab>
   
   <mat-tab label="Agendar">
-    <h2 class="subTitle mt-2">Escolha a data para a sua marcação</h2>
+    <h2 class="subTitle mt-2">Escolha o barbeiro e a data para a sua marcação</h2>
     <form [formGroup]="getAvailableDatesForBarberForm" (ngSubmit)="getAvailableDatesForBarber()">
       <div class="toolbar-row">
         <mat-form-field>
@@ -89,7 +89,18 @@
 
     <mat-divider></mat-divider>
     @if (availableSlotsList$ | async; as slots) {
-      <h4 class="subTitle mt-4">Escolha a hora:</h4>
+      <h4 class="subTitle mt-4">Escolha o Tipo de Serviço:</h4> 
+      <div class="d-flex flex-md-row p-4 gap-4 align-items-center justify-content-center">   
+        <mat-form-field>
+          <mat-label>Tipo de serviço</mat-label>
+          <mat-select formControlName="serviceId">
+            @for (service of services; track service) {
+              <mat-option [value]="service.id">{{service.name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <h4 class="subTitle mt-2">Escolha a hora:</h4>      
       <div class="m-4 pb-4" style="border: 1px solid #DEDEDE; background: white;">
         <div class="d-flex flex-md-row p-4 gap-4 align-items-center justify-content-center">
           <mat-chip-listbox aria-label="Slots List">
