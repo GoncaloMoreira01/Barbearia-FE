@@ -4,8 +4,8 @@ import { Authentication } from '../services/authentication';
 import { ApiEndpoints } from '../constants/ApiEndpointsEnum';
 import { TestimonialObject } from '../models/TestimonialObject';
 
-export interface Testimonial {
-  userId: number;
+export interface TestimonialObj {
+  userName: string;
   stars: number;
   description: string;
 }
@@ -18,6 +18,10 @@ export class Testimonial {
 
   createTestimonial(testimonial: TestimonialObject) {
     return this.http.post<string>(ApiEndpoints.CREATE_TESTIMONIAL, testimonial);
+  }
+
+  getTestimonials() {
+    return this.http.get<TestimonialObj[]>(ApiEndpoints.GET_TESTIMONIALS);
   }
   
 }

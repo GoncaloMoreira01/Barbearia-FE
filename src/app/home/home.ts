@@ -6,9 +6,10 @@ import { ApiEndpoints } from '../constants/ApiEndpointsEnum';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { Testimonial } from '../services/testimonial';
 
 
-export interface Testimonial {
+export interface TestimonialObj {
   userName: string;
   stars: number;
   description: string;
@@ -22,14 +23,14 @@ export interface Testimonial {
   styleUrl: './home.css',
 })
 export class Home implements OnInit {
-  constructor(public http: HttpClient, public auth: Authentication) {}
+  constructor(public http: HttpClient, public auth: Authentication, private testimonialService : Testimonial) {}
 
-  testimonials$!: Observable<Testimonial[]>;
-  testimonialsList: Testimonial[] = [];
+  testimonials$!: Observable<TestimonialObj[]>;
+  testimonialsList: TestimonialObj[] = [];
   currentIndex = 0;
 
   ngOnInit() {
-   this.testimonials$ = this.http.get<Testimonial[]>(ApiEndpoints.GET_TESTIMONIALS);
+   this.testimonials$ = this.testimonialService.getTestimonials();
   }
 
   next(total: number) {

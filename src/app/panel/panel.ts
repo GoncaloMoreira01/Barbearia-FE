@@ -22,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
 import { Appointements } from '../services/appointements';
 import { Testimonial } from '../services/testimonial';
+import { User } from '../services/user';
 import { TestimonialObject } from '../models/TestimonialObject';
 import { map, startWith  } from 'rxjs/operators';
 
@@ -41,7 +42,7 @@ export interface Barber {
 })
 
 export class Panel {
-  constructor(private http: HttpClient, public auth: Authentication, private fb: FormBuilder, private appointementsService: Appointements, private testimonialService: Testimonial) {}
+  constructor(private http: HttpClient, public auth: Authentication, private fb: FormBuilder, private appointementsService: Appointements, private testimonialService: Testimonial, private userService: User) {}
 
   rating: number = 0;
   description: string = '';
@@ -52,7 +53,7 @@ export class Panel {
   services = barberServices;
 
   ngOnInit() {
-     this.barbers$ = this.http.get<Barber[]>(ApiEndpoints.GET_BARBERS);
+     this.barbers$ = this.userService.getBarbers();
      this.getAvailableDatesForBarberForm = this.fb.group({
       barberId: [''],
       scheduleDate: ['']
