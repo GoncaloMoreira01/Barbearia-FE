@@ -11,19 +11,19 @@ import { MatDivider } from '@angular/material/divider';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { FormsModule } from '@angular/forms';
-import { Authentication } from '../services/authentication';
+import { Authentication } from '../../services/authentication';
 import { HttpClient } from '@angular/common/http';
-import { ApiEndpoints } from '../constants/ApiEndpointsEnum';
-import { barberServices } from '../constants/BarberServiceType';
+import { ApiEndpoints } from '../../constants/ApiEndpointsEnum';
+import { barberServices } from '../../constants/BarberServiceType';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
-import { Appointements } from '../services/appointements';
-import { Testimonial } from '../services/testimonial';
-import { User } from '../services/user';
-import { TestimonialObject } from '../models/TestimonialObject';
+import { Appointements } from '../../services/appointements';
+import { Testimonial } from '../../services/testimonial';
+import { User } from '../../services/user';
+import { TestimonialObject } from '../../models/TestimonialObject';
 import { map, startWith  } from 'rxjs/operators';
 
 export interface Barber {

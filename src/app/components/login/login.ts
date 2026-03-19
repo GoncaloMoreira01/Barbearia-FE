@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { ApiEndpoints } from '../constants/ApiEndpointsEnum';
-import { Authentication, LoggedUser } from "../services/authentication"
+import { ApiEndpoints } from '../../constants/ApiEndpointsEnum';
+import { Authentication, LoggedUser } from "../../services/authentication"
 import { Router } from '@angular/router';
 
 @Component({

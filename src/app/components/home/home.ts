@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Authentication } from '../services/authentication';
+import { Authentication } from '../../services/authentication';
 import { OnInit } from '@angular/core';
-import { ApiEndpoints } from '../constants/ApiEndpointsEnum';
+import { ApiEndpoints } from '../../constants/ApiEndpointsEnum';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { Testimonial } from '../services/testimonial';
+import { Testimonial } from '../../services/testimonial';
 
 
 export interface TestimonialObj {

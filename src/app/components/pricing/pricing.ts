@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Authentication } from '../services/authentication';
+import { Authentication } from '../../services/authentication';
 
 @Component({
   selector: 'app-pricing',
