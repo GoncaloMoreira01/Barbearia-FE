@@ -27,6 +27,7 @@
       <div class="testimonial-wrapper">
         @if (testimonials.length > 0) {
           <div class="testimonial-card">
+            <p>{{ '⭐'.repeat(testimonials[currentIndex].stars) }}</p>
             <p class="message">
               {{ testimonials[currentIndex].description }}
             </p>
