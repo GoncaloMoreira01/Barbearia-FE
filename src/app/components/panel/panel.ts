@@ -25,6 +25,7 @@ import { Testimonial } from '../../services/testimonial';
 import { User } from '../../services/user';
 import { TestimonialObject } from '../../models/TestimonialObject';
 import { map, startWith  } from 'rxjs/operators';
+import { ApointmentCreateObject } from '../../models/AppointmentObjects';
 
 export interface Barber {
   id: number;
@@ -49,6 +50,7 @@ export class Panel {
 
   barbers$!: Observable<Barber[]>;
   getAvailableDatesForBarberForm!: FormGroup;
+  createAppointmentForm!: FormGroup;
   availableSlotsList$!: Observable<string[]>;
   services = barberServices;
 
@@ -57,6 +59,11 @@ export class Panel {
      this.getAvailableDatesForBarberForm = this.fb.group({
       barberId: [''],
       scheduleDate: ['']
+    });
+    this.createAppointmentForm = this.fb.group({
+      serviceId: [''],
+      description: [''],
+      scheduleHour: ['']
     });
   }
 
@@ -95,5 +102,27 @@ export class Panel {
     }
 
     this.testimonialService.createTestimonial(testimonial)
+  }
+
+  createAppointment() {
+    const user = this.auth.getUserLogged();
+    if (!user) {
+      throw new Error("User not logged in");
+    }
+
+    const [hours, minutes] = this.createAppointmentForm.get('scheduleHour')?.value.split(':').map(Number);
+    const buildedScheduleDate = new Date(this.getAvailableDatesForBarberForm.get('scheduleDate')?.value);
+    buildedScheduleDate.setHours(hours, minutes, 0, 0);
+    buildedScheduleDate.toISOString;
+
+    const appointmentCreateObject: ApointmentCreateObject = {
+      clientId: user.id,
+      barberId: this.getAvailableDatesForBarberForm.get('barberId')?.value,
+      scheduleDate: buildedScheduleDate,
+      description: this.createAppointmentForm.get('description')?.value,
+      serviceType: this.createAppointmentForm.get('serviceId')?.value
+    };
+
+    this.appointementsService.createAppointment(appointmentCreateObject).subscribe();
   }
 }
