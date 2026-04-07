@@ -13,10 +13,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { FormsModule } from '@angular/forms';
 import { Authentication } from '../../services/authentication';
 import { HttpClient } from '@angular/common/http';
-import { ApiEndpoints } from '../../constants/ApiEndpointsEnum';
 import { barberServices } from '../../constants/BarberServiceType';
 import { Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
@@ -25,7 +24,7 @@ import { Testimonial } from '../../services/testimonial';
 import { User } from '../../services/user';
 import { TestimonialObject } from '../../models/TestimonialObject';
 import { map, startWith  } from 'rxjs/operators';
-import { ApointmentCreateObject } from '../../models/AppointmentObjects';
+import { ApointmentObject, FutureAndOldAppointmentsObject } from '../../models/AppointmentObjects';
 
 export interface Barber {
   id: number;
@@ -37,7 +36,7 @@ export interface Barber {
   providers: [provideNativeDateAdapter(), 
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
-  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSelect, MatOption, MatTab, MatTabGroup, MatDivider, MatExpansionModule, FormsModule, AsyncPipe, ReactiveFormsModule, MatChipListbox, MatChipOption],
+  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSelect, MatOption, MatTab, MatTabGroup, MatDivider, MatExpansionModule, FormsModule, AsyncPipe, ReactiveFormsModule, MatChipListbox, MatChipOption, DatePipe],
   templateUrl: './panel.html',
   styleUrl: './panel.css',
 })
@@ -54,7 +53,11 @@ export class Panel {
   availableSlotsList$!: Observable<string[]>;
   services = barberServices;
 
+  oldClientAppointments$!: Observable<FutureAndOldAppointmentsObject[]>;
+
   ngOnInit() {
+    const userId = this.auth.getUserLogged()?.id;
+
      this.barbers$ = this.userService.getBarbers();
      this.getAvailableDatesForBarberForm = this.fb.group({
       barberId: [''],
@@ -65,6 +68,10 @@ export class Panel {
       description: [''],
       scheduleHour: ['']
     });
+
+    if (userId !== undefined) {
+      this.oldClientAppointments$ = this.appointementsService.getOldClientAppointments(userId);
+    }
   }
 
   getAvailableDatesForBarber() {
@@ -75,10 +82,6 @@ export class Panel {
       : '';
 
     this.availableSlotsList$ = this.appointementsService.getAvailableDatesForBarber(barberId, scheduleDate)
-    .pipe(
-      map(slots => slots.map(slot => slot.slice(slot.indexOf("T") + 1, slot.indexOf("T") + 6))),
-      startWith([])
-    );
   }
 
   submitReview() {
@@ -115,7 +118,7 @@ export class Panel {
     buildedScheduleDate.setHours(hours, minutes, 0, 0);
     buildedScheduleDate.toISOString;
 
-    const appointmentCreateObject: ApointmentCreateObject = {
+    const appointmentCreateObject: ApointmentObject = {
       clientId: user.id,
       barberId: this.getAvailableDatesForBarberForm.get('barberId')?.value,
       scheduleDate: buildedScheduleDate,

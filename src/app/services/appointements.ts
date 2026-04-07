@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiEndpoints } from '../constants/ApiEndpointsEnum';
 import { HttpClient } from '@angular/common/http';
-import { ApointmentCreateObject } from '../models/AppointmentObjects';
+import { ApointmentObject, FutureAndOldAppointmentsObject } from '../models/AppointmentObjects';
 
 
 @Injectable({
@@ -19,8 +19,15 @@ export class Appointements {
       });
   }
 
-  createAppointment(appointmentCreateObject: ApointmentCreateObject) {
-    console.log("aaa")
+  createAppointment(appointmentCreateObject: ApointmentObject) {
     return this.http.post<string>(ApiEndpoints.POST_CREATE_APPOINTMENT, appointmentCreateObject);
+  }
+
+  getOldClientAppointments(clientId: number) {
+    return this.http.get<FutureAndOldAppointmentsObject[]>(ApiEndpoints.GET_OLD_CLIENT_APPOINTMENTS, {
+      params: {
+        clientId: clientId
+      }
+    });
   }
 }

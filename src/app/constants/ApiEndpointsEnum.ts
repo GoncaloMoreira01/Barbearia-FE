@@ -7,4 +7,5 @@ export const ApiEndpoints = {
 
   GET_AVAILABLE_DATES_FOR_BARBER: 'http://localhost:8080/barbershop/appointments/getAvailableDatesForBarber',
   POST_CREATE_APPOINTMENT: 'http://localhost:8080/barbershop/appointments/createAppointment',
+  GET_OLD_CLIENT_APPOINTMENTS: 'http://localhost:8080/barbershop/appointments/getOldClientAppointments',
 };
