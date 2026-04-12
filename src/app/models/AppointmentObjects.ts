@@ -7,7 +7,8 @@ export interface ApointmentObject {
 }
 
 export interface FutureAndOldAppointmentsObject {
-  clientName: string;
+  barberName: string;
   scheduleDate: Date;
   description: string;
+  serviceType: number;
 }

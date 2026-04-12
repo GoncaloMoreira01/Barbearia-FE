@@ -74,6 +74,11 @@ export class Panel {
     }
   }
 
+  getServiceName(id: number): string {
+    const service = barberServices.find(service => service.id === id);
+    return service ? service.name : '';
+  }
+
   getAvailableDatesForBarber() {
     const barberId = this.getAvailableDatesForBarberForm.get('barberId')?.value;
     let scheduleDate = this.getAvailableDatesForBarberForm.get('scheduleDate')?.value;

@@ -151,12 +151,22 @@
         @if (oldClientAppointments$ | async; as oldClientAppointments) {
           @for (oldClientAppointment of oldClientAppointments; track $index) {
             <a class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-              <img src="https://github.com/twbs.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0"/>
+              <img 
+                [src]="
+                  oldClientAppointment.serviceType == 1 ? 'https://www.pngall.com/wp-content/uploads/2016/03/Scissor-PNG-Clipart.png' :
+                  oldClientAppointment.serviceType == 2 ? 'https://cdn-icons-png.flaticon.com/512/7752/7752869.png' :
+                  oldClientAppointment.serviceType == 3 ? 'https://png.pngtree.com/png-vector/20250820/ourlarge/pngtree-male-portrait-silhouette-with-short-hair-and-beard-png-image_17048721.webp' :
+                  ''
+                "
+                width="32"
+                height="32"
+                class="rounded-circle flex-shrink-0"
+              />
               <div class="d-flex gap-2 w-100 justify-content-between">
                 <div class="ml-2">
-                  <h6 class="mb-0">{{oldClientAppointment.clientName}}</h6>
+                  <h6 class="mb-0">{{ oldClientAppointment.barberName }} - {{ getServiceName(oldClientAppointment.serviceType) }}</h6>
                   <p class="mb-0">
-                    uma descrição
+                    {{ oldClientAppointment.description }}
                   </p>
                 </div>
                 <small class="opacity-50 text-nowrap"> {{ oldClientAppointment.scheduleDate | date:'yyyy-MM-dd' }}</small>
