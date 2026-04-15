@@ -30,4 +30,12 @@ export class Appointements {
       }
     });
   }
+
+  getNextClientAppointments(clientId: number) {
+    return this.http.get<FutureAndOldAppointmentsObject[]>(ApiEndpoints.GET_NEXT_CLIENT_APPOINTMENTS, {
+      params: {
+        clientId: clientId
+      }
+    });
+  }
 }

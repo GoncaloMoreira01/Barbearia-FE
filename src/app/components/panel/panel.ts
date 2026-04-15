@@ -54,6 +54,7 @@ export class Panel {
   services = barberServices;
 
   oldClientAppointments$!: Observable<FutureAndOldAppointmentsObject[]>;
+  nextClientAppointments$!: Observable<FutureAndOldAppointmentsObject[]>;
 
   ngOnInit() {
     const userId = this.auth.getUserLogged()?.id;
@@ -71,6 +72,7 @@ export class Panel {
 
     if (userId !== undefined) {
       this.oldClientAppointments$ = this.appointementsService.getOldClientAppointments(userId);
+      this.nextClientAppointments$ = this.appointementsService.getNextClientAppointments(userId);
     }
   }
 
