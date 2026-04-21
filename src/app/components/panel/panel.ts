@@ -44,8 +44,12 @@ export interface Barber {
 export class Panel {
   constructor(private http: HttpClient, public auth: Authentication, private fb: FormBuilder, private appointementsService: Appointements, private testimonialService: Testimonial, private userService: User) {}
 
+  userId: any;
+
   rating: number = 0;
   description: string = '';
+
+  selectedDate!: Date;
 
   barbers$!: Observable<Barber[]>;
   getAvailableDatesForBarberForm!: FormGroup;
@@ -55,9 +59,10 @@ export class Panel {
 
   oldClientAppointments$!: Observable<FutureAndOldAppointmentsObject[]>;
   nextClientAppointments$!: Observable<FutureAndOldAppointmentsObject[]>;
+  barberAppointments$!: Observable<FutureAndOldAppointmentsObject[]>;
 
   ngOnInit() {
-    const userId = this.auth.getUserLogged()?.id;
+  this.userId = this.auth.getUserLogged()?.id;
 
      this.barbers$ = this.userService.getBarbers();
      this.getAvailableDatesForBarberForm = this.fb.group({
@@ -70,15 +75,22 @@ export class Panel {
       scheduleHour: ['']
     });
 
-    if (userId !== undefined) {
-      this.oldClientAppointments$ = this.appointementsService.getOldClientAppointments(userId);
-      this.nextClientAppointments$ = this.appointementsService.getNextClientAppointments(userId);
+    if (this.userId !== undefined) {
+      this.oldClientAppointments$ = this.appointementsService.getOldClientAppointments(this.userId);
+      this.nextClientAppointments$ = this.appointementsService.getNextClientAppointments(this.userId);
     }
   }
 
   getServiceName(id: number): string {
     const service = barberServices.find(service => service.id === id);
     return service ? service.name : '';
+  }
+
+
+  getBarberAppointmentsByDate() {
+     if (this.selectedDate) {
+      this.barberAppointments$ = this.appointementsService.getBarberAppointments(this.userId, this.selectedDate);
+     }
   }
 
   getAvailableDatesForBarber() {

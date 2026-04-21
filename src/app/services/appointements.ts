@@ -38,4 +38,13 @@ export class Appointements {
       }
     });
   }
+
+  getBarberAppointments(barberId: number, scheduleDate: Date) {
+    return this.http.get<FutureAndOldAppointmentsObject[]>(ApiEndpoints.GET_BARBER_APPOINTMENTS, {
+      params: {
+        barberId: barberId,
+        scheduleDate: scheduleDate.toISOString().split('T')[0]
+      }
+    });
+  }
 }
