@@ -1,14 +1,39 @@
-<div class="banner"></div>
-<section>
-  <div class="px-4 pb-5 my-5 text-center">
-    <img class="d-block mx-auto mb-4" src="/images/logo.png" alt="logo of the barber shop" width="250" height="250">
-     <h1 class="title">The Gentleman´s Barber</h1>
-     <div class="subtitle">Quem somos?</div>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead my-4">Ao longo dos anos, A Barbearia tornou-se um espaço de referência, onde o corte de cabelo e o cuidado da barba vão muito além de um simples serviço. Aqui, cada cliente é recebido com atenção personalizada, num ambiente acolhedor que respeita os rituais clássicos da barbearia, sem nunca perder de vista as tendências atuais.</p>
-      <p class="lead my-4">A paixão pelo ofício, a formação contínua da equipa e o uso de produtos de elevada qualidade refletem o compromisso com a excelência. Mais do que uma barbearia, este é um ponto de encontro para quem valoriza estilo, autenticidade e uma experiência genuína, marcada pelo rigor, pelo detalhe e pelo respeito pela tradição.</p>
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <button class="buttonSchedule" type="button" [routerLink]="auth.isUserLoggedIn() ? '/panel' : '/login'">Marcação</button>
+<div class="banner">
+  <div class="banner-content">
+    <div class="banner-eyebrow">Est. Porto · Tradição &amp; Estilo</div>
+    <h1 class="banner-title">The Gentleman's Barber</h1>
+    <div class="banner-divider"></div>
+    <p class="banner-tagline">Onde o estilo encontra a tradição</p>
+  </div>
+</div>
+<section class="hero-section py-5">
+  <div class="container text-center">
+
+    <img class="hero-logo mb-4" src="/images/logo.png" alt="Logótipo da barbearia The Gentleman’s Barber" width="220" height="220">
+    <h1 class="hero-title mt-3">The Gentleman’s Barber</h1>
+    <p class="hero-subtitle mb-5">
+      Mais do que uma barbearia — uma experiência clássica e sofisticada.
+    </p>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="about-card">
+          <h2 class="section-title mb-4">Quem somos?</h2>
+          <p class="lead-text">
+            Ao longo dos anos, a <strong>The Gentleman’s Barber</strong> tornou-se um espaço de referência,
+            onde o corte de cabelo e o cuidado da barba vão muito além de um simples serviço.
+            Cada cliente é recebido com atenção personalizada, num ambiente acolhedor que honra
+            os rituais clássicos da barbearia sem perder de vista as tendências modernas.
+          </p>
+          <p class="lead-text">
+            A paixão pelo ofício, a formação contínua da equipa e a utilização de produtos premium
+            refletem o nosso compromisso com a excelência. Mais do que uma barbearia,
+            somos um ponto de encontro para homens que valorizam estilo, autenticidade
+            e uma experiência cuidada ao detalhe.
+          </p>
+          <div class="mt-5">
+            <button class="buttonSchedule" type="button" [routerLink]="auth.isUserLoggedIn() ? '/panel' : '/login'">Marcar Agora</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
