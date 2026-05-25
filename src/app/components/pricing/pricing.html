@@ -1,45 +1,68 @@
-<h1 class="mt-3" style="text-align: center; color: var(--red-color);">Tabela de preços</h1>
-<div class="cards-container">
-  <div class="card">
-    <div class="card-image">
-      <img src="https://img.freepik.com/fotos-gratis/homem-obtendo-seu-cabelo-aparado-de-atras-de_23-2148257063.jpg?semt=ais_hybrid&w=740&q=80" alt="Corte clássico">
+<section class="pricing-section">
+
+  <div class="pricing-header">
+    <h1 class="pricing-title">Tabela de Preços</h1>
+    <p class="pricing-subtitle">
+      Cortes e cuidados pensados para homens que valorizam elegância, detalhe e uma experiência de excelência.
+    </p>
+  </div>
+
+  <div class="cards-container">
+    
+    <div class="price-card">
+      <div class="card-image">
+        <img src="https://img.freepik.com/fotos-gratis/homem-obtendo-seu-cabelo-aparado-de-atras-de_23-2148257063.jpg?semt=ais_hybrid&w=740&q=80" alt="Corte clássico">
+      </div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <h3 class="card-title">Corte de Cabelo</h3>
+        <p class="card-description">
+          Corte clássico e moderno executado com precisão,
+          pensado para realçar o seu estilo.
+        </p>
+        <div class="price-area">
+          <span class="price">10€</span>
+        </div>
+        <button class="card-button" [routerLink]="auth.isUserLoggedIn() ? '/panel' : '/login'">Agendar</button>
+      </div>
     </div>
-    <div class="card-content">
-      <h3 class="card-title">Corte de Cabelo</h3>
-      <p class="card-description">
-        Corte atemporal com precisão, para quem valoriza tradição e estilo.
-      </p>
-      <h3 class="card-price">10€</h3>
-      <button class="card-button" [routerLink]="auth.isUserLoggedIn() ? '/panel' : '/login'">Agendar</button>
+
+    <div class="price-card">
+      <div class="card-image">
+        <img src="https://img.freepik.com/fotos-gratis/jovem-arrumando-a-barba-no-barbeiro_23-2148985723.jpg?semt=ais_hybrid&w=740&q=80" alt="Barba perfeita">
+      </div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <h3 class="card-title">Corte de Barba</h3>
+        <p class="card-description">
+          Definição precisa e acabamento premium para uma barba elegante e impecável.
+        </p>
+        <div class="price-area">
+          <span class="price">7€</span>
+        </div>
+        <button class="card-button" [routerLink]="auth.isUserLoggedIn() ? '/panel' : '/login'">Agendar</button>
+      </div>
+    </div>
+
+    <div class="price-card featured-card">
+      <div class="featured-badge">Mais Procurado</div>
+      <div class="card-image">
+        <img src="https://i.pinimg.com/originals/22/27/a4/2227a48fcdd2b0ce62ec7e0de503aa83.jpg" alt="Cabelo e barba">
+      </div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <h3 class="card-title">Cabelo + Barba</h3>
+        <p class="card-description">
+          Experiência completa para renovar o visual com detalhe, sofisticação e personalidade.
+        </p>
+        <div class="price-area">
+          <span class="price">16€</span>
+        </div>
+        <button class="card-button" [routerLink]="auth.isUserLoggedIn() ? '/panel' : '/login'">
+          Agendar
+        </button>
+      </div>
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-image">
-      <img src="https://img.freepik.com/fotos-gratis/jovem-arrumando-a-barba-no-barbeiro_23-2148985723.jpg?semt=ais_hybrid&w=740&q=80" alt="Barba Perfeita">
-    </div>
-    <div class="card-content">
-      <h3 class="card-title">Corte de Barba</h3>
-      <p class="card-description">
-        Definimos a sua barba com precisão e estilo, deixando cada detalhe impecável.
-      </p>
-      <h3 class="card-price">7€</h3>
-      <button class="card-button" [routerLink]="auth.isUserLoggedIn() ? '/panel' : '/login'">Agendar</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-image">
-      <img src="https://i.pinimg.com/originals/22/27/a4/2227a48fcdd2b0ce62ec7e0de503aa83.jpg" alt="Corte Moderno">
-    </div>
-    <div class="card-content">
-      <h3 class="card-title">Cabelo + Barba</h3>
-      <p class="card-description">
-        Transforme seu visual com precisão total. Estilo que marca presença e não deixa ninguém passar despercebido.
-      </p>
-      <h3 class="card-price">16€</h3>
-      <button class="card-button" [routerLink]="auth.isUserLoggedIn() ? '/panel' : '/login'">Agendar</button>
-    </div>
-  </div>
-</div>
-
+</section>
