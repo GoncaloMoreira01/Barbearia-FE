@@ -45,6 +45,7 @@ export class Panel {
   constructor(private http: HttpClient, public auth: Authentication, private fb: FormBuilder, private appointementsService: Appointements, private testimonialService: Testimonial, private userService: User) {}
 
   userId: any;
+  isBarber: boolean = false;
 
   rating: number = 0;
   description: string = '';
@@ -62,7 +63,8 @@ export class Panel {
   barberAppointments$!: Observable<FutureAndOldAppointmentsObject[]>;
 
   ngOnInit() {
-  this.userId = this.auth.getUserLogged()?.id;
+    this.userId = this.auth.getUserLogged()?.id;
+    this.isBarber = this.auth.getUserLogged()?.role === 1;
 
      this.barbers$ = this.userService.getBarbers();
      this.getAvailableDatesForBarberForm = this.fb.group({
