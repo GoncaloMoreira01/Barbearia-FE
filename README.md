@@ -21,9 +21,9 @@ This project demonstrates **role-based access control, reactive programming with
 
 *   Schedule new appointments
     
-*   View **upcoming appointments**  **(coming soon)**
+*   View **upcoming appointments**
     
-*   View **past appointment history**   **(coming soon)**
+*   View **past appointment history**
     
 *   Manage personal bookings **(coming soon)**
     
@@ -32,7 +32,7 @@ This project demonstrates **role-based access control, reactive programming with
 
 *   Create and manage appointments **(manage coming soon)**
     
-*   View previous services  **(coming soon)**
+*   View previous services
     
 *   Leave feedback after appointments
     
