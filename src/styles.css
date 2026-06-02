@@ -8,3 +8,30 @@ html, body {
   --gold-color: #FFD400;
   --background-color: #f9f9f9;
 }
+
+.success-snackbar {
+  --mdc-snackbar-container-color: #2e7d32;
+  --mdc-snackbar-supporting-text-color: #fff;
+  --mat-snack-bar-button-color: #fff;
+}
+
+.error-snackbar {
+  --mdc-snackbar-container-color: #c62828;
+  --mdc-snackbar-supporting-text-color: #fff;
+  --mat-snack-bar-button-color: #fff;
+}
+
+.mat-mdc-snack-bar-container.success-snackbar .mdc-snackbar__surface {
+  background-color: #2e7d32;
+}
+
+.mat-mdc-snack-bar-container.error-snackbar .mdc-snackbar__surface {
+  background-color: #c62828;
+}
+
+.mat-mdc-snack-bar-container.success-snackbar .mdc-snackbar__label,
+.mat-mdc-snack-bar-container.error-snackbar .mdc-snackbar__label,
+.mat-mdc-snack-bar-container.success-snackbar .mat-mdc-button,
+.mat-mdc-snack-bar-container.error-snackbar .mat-mdc-button {
+  color: #fff;
+}

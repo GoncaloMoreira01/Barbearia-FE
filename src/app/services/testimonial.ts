@@ -17,7 +17,9 @@ export class Testimonial {
   constructor(private http: HttpClient, public auth: Authentication) {}
 
   createTestimonial(testimonial: TestimonialObject) {
-    return this.http.post<string>(ApiEndpoints.CREATE_TESTIMONIAL, testimonial);
+    return this.http.post<string>(ApiEndpoints.CREATE_TESTIMONIAL, testimonial, {
+      observe: 'response',
+    });
   }
 
   getTestimonials() {

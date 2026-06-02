@@ -13,12 +13,14 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { FormsModule } from '@angular/forms';
 import { Authentication } from '../../services/authentication';
 import { HttpClient } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { barberServices } from '../../constants/BarberServiceType';
 import { Observable } from 'rxjs';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Appointements } from '../../services/appointements';
 import { Testimonial } from '../../services/testimonial';
 import { User } from '../../services/user';
@@ -36,13 +38,13 @@ export interface Barber {
   providers: [provideNativeDateAdapter(), 
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
-  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSelect, MatOption, MatTab, MatTabGroup, MatDivider, MatExpansionModule, FormsModule, AsyncPipe, ReactiveFormsModule, MatChipListbox, MatChipOption, DatePipe],
+  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSelect, MatOption, MatTab, MatTabGroup, MatDivider, MatExpansionModule, FormsModule, AsyncPipe, ReactiveFormsModule, MatChipListbox, MatChipOption, MatSnackBarModule, DatePipe],
   templateUrl: './panel.html',
   styleUrl: './panel.css',
 })
 
 export class Panel {
-  constructor(private http: HttpClient, public auth: Authentication, private fb: FormBuilder, private appointementsService: Appointements, private testimonialService: Testimonial, private userService: User) {}
+  constructor(private http: HttpClient, public auth: Authentication, private fb: FormBuilder, private appointementsService: Appointements, private testimonialService: Testimonial, private userService: User, private snackBar: MatSnackBar) {}
 
   userId: any;
   isBarber: boolean = false;
@@ -125,7 +127,14 @@ export class Panel {
       return;
     }
 
-    this.testimonialService.createTestimonial(testimonial)
+    this.testimonialService.createTestimonial(testimonial).subscribe({
+      next: response => {
+        if (response.status === 201) {
+          this.showPopup('Opinião enviada com sucesso!', 'success-snackbar');
+        }
+      },
+      error: err => this.showEndpointError(err)
+    });
   }
 
   createAppointment() {
@@ -147,6 +156,31 @@ export class Panel {
       serviceType: this.createAppointmentForm.get('serviceId')?.value
     };
 
-    this.appointementsService.createAppointment(appointmentCreateObject).subscribe();
+    this.appointementsService.createAppointment(appointmentCreateObject).subscribe({
+      next: response => {
+        if (response.status === 201) {
+          this.showPopup('Marcação criada com sucesso!', 'success-snackbar');
+        }
+      },
+      error: err => this.showEndpointError(err)
+    });
+  }
+
+  private showEndpointError(err: HttpErrorResponse) {
+    if (err.status === 412) {
+      this.showPopup('Não foi possível concluir o pedido.', 'error-snackbar');
+      return;
+    }
+
+    this.showPopup('Ocorreu um erro. Tente novamente.', 'error-snackbar');
+  }
+
+  private showPopup(message: string, panelClass: string) {
+    this.snackBar.open(message, 'Fechar', {
+      duration: 3500,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: [panelClass],
+    });
   }
 }

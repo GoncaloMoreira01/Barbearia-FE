@@ -4,15 +4,16 @@ import { HttpClient } from '@angular/common/http';
 import { ApiEndpoints } from '../../constants/ApiEndpointsEnum';
 import { Authentication, LoggedUser } from "../../services/authentication"
 import { Router } from '@angular/router';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, MatSnackBarModule],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
 export class Login {
-  constructor(private http: HttpClient, private auth: Authentication, private router: Router) {} // equivale a fazer constructor(http: HttpClient) { this.http = http; }
+  constructor(private http: HttpClient, private auth: Authentication, private router: Router, private snackBar: MatSnackBar) {} // equivale a fazer constructor(http: HttpClient) { this.http = http; }
 
   login(form: NgForm) {
     const wrongCredentialsDiv = document.getElementById("wrongCredentials") as HTMLElement;
@@ -26,13 +27,24 @@ export class Login {
           next: response => {
             console.log('Login successful')
             this.auth.setUserLogged(response);
+            this.showPopup('Login efetuado com sucesso!', 'success-snackbar');
             this.router.navigate(["/home"])
           },
            error: err => {
             console.error('Login failed', err);
             wrongCredentialsDiv.style.display = "initial";
+            this.showPopup('Credenciais inválidas.', 'error-snackbar');
            }
         });
       }
+  }
+
+  private showPopup(message: string, panelClass: string) {
+    this.snackBar.open(message, 'Fechar', {
+      duration: 3500,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: [panelClass],
+    });
   }
 }

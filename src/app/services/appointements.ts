@@ -20,7 +20,9 @@ export class Appointements {
   }
 
   createAppointment(appointmentCreateObject: ApointmentObject) {
-    return this.http.post<string>(ApiEndpoints.POST_CREATE_APPOINTMENT, appointmentCreateObject);
+    return this.http.post<string>(ApiEndpoints.POST_CREATE_APPOINTMENT, appointmentCreateObject, {
+      observe: 'response',
+    });
   }
 
   getOldClientAppointments(clientId: number) {
