@@ -1,5 +1,6 @@
 export const ApiEndpoints = {
   USER_LOGIN: 'http://localhost:8080/barbershop/users/login',
+  USER_CREATE: 'http://localhost:8080/barbershop/users/create',
   GET_BARBERS: 'http://localhost:8080/barbershop/users/getBarbers',
   
   CREATE_TESTIMONIAL: 'http://localhost:8080/barbershop/testimonials/create',

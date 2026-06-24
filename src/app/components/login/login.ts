@@ -3,12 +3,12 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ApiEndpoints } from '../../constants/ApiEndpointsEnum';
 import { Authentication, LoggedUser } from "../../services/authentication"
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, MatSnackBarModule],
+  imports: [FormsModule, MatSnackBarModule, RouterLink],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })

@@ -1,6 +1,6 @@
 <div class="login-card">
   <h1>Login</h1>
-  <p class="subtitle">Aceda à sua área de marcações</p>
+  <p class="subtitle">Aceda a sua area de marcacoes</p>
 
   <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
     <div class="form-group">
@@ -14,9 +14,13 @@
     </div>
     <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
     <div id="wrongCredentials" class="mt-2">
-      Pelo menos uma das credenciais está errada
+      Pelo menos uma das credenciais esta errada
     </div>
   </form>
 
-  <span class="footer-text mt-2">© 2026 The Gentleman´s Barber</span>
+  <p class="create-account-text">
+    Nao tem conta? <a routerLink="/create-user">Clique aqui</a>
+  </p>
+
+  <span class="footer-text mt-2">2026 The Gentleman's Barber</span>
 </div>
