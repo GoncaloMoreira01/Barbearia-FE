@@ -1,0 +1,8 @@
+@if (connectionLost()) {
+  <div class="connection-overlay" role="alert" aria-live="assertive">
+    <div class="connection-popup">
+      <strong>Connection was lost</strong>
+      <span>Unable to reach the backend. Please check the server or your network.</span>
+    </div>
+  </div>
+}
