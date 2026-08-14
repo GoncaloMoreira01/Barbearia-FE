@@ -27,20 +27,20 @@ export class Login {
           next: response => {
             console.log('Login successful')
             this.auth.setUserLogged(response);
-            this.showPopup('Login efetuado com sucesso!', 'success-snackbar');
+            this.showPopup('Login successful!', 'success-snackbar');
             this.router.navigate(["/home"])
           },
            error: err => {
             console.error('Login failed', err);
             wrongCredentialsDiv.style.display = "initial";
-            this.showPopup('Credenciais inválidas.', 'error-snackbar');
+            this.showPopup('Invalid credentials.', 'error-snackbar');
            }
         });
       }
   }
 
   private showPopup(message: string, panelClass: string) {
-    this.snackBar.open(message, 'Fechar', {
+    this.snackBar.open(message, 'Close', {
       duration: 3500,
       horizontalPosition: 'right',
       verticalPosition: 'top',

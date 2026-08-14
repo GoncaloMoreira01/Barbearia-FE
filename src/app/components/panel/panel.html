@@ -1,7 +1,7 @@
 <mat-tab-group>
   @if (isBarber) {
     <mat-tab label="Agenda">
-      <h2 class="subTitle mt-2">Ver Minha Agenda</h2>
+      <h2 class="subTitle mt-2">My Schedule</h2>
       <div class="toolbar-row">
         <mat-form-field appearance="fill" class="date-field">
           <mat-label>Choose a date</mat-label>
@@ -55,7 +55,7 @@
   
   @if (!isBarber) {
     <mat-tab label="Agendar">
-      <h2 class="subTitle mt-2">Escolha o barbeiro e a data para a sua marcação</h2>
+      <h2 class="subTitle mt-2">Choose the barber and date for your appointment</h2>
       <form [formGroup]="getAvailableDatesForBarberForm" (ngSubmit)="getAvailableDatesForBarber()">
         <div class="toolbar-row">
           <mat-form-field>
@@ -83,10 +83,10 @@
       <mat-divider></mat-divider>
       <form [formGroup]="createAppointmentForm" (ngSubmit)="createAppointment()">
         @if (availableSlotsList$ | async; as slots) {
-          <h4 class="subTitle mt-4">Escolha o Tipo de Serviço e caso deseje, deixe alguma descrição</h4> 
+          <h4 class="subTitle mt-4">Choose the Service Type and if desired, leave a description</h4> 
           <div class="d-flex flex-md-row p-4 gap-4 align-items-center justify-content-center">   
             <mat-form-field>
-              <mat-label>Tipo de serviço</mat-label>
+              <mat-label>Service Type</mat-label>
               <mat-select formControlName="serviceId">
                 @for (service of services; track service) {
                   <mat-option [value]="service.id">{{service.name}}</mat-option>
@@ -94,11 +94,11 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field style="margin-left: 2rem;">
-              <mat-label>Comentário</mat-label>
+              <mat-label>Comment</mat-label>
               <input matInput formControlName="description">
             </mat-form-field>
           </div>
-          <h4 class="subTitle mt-2">Escolha a hora:</h4>      
+          <h4 class="subTitle mt-2">Choose the time:</h4>      
           <div class="m-4 pb-4" style="border: 1px solid #DEDEDE; background: white;">
             <div class="d-flex flex-md-row p-4 gap-4 align-items-center justify-content-center">
               <mat-chip-listbox formControlName="scheduleHour" aria-label="Slots List">
@@ -115,13 +115,13 @@
       </form>
     </mat-tab>
 
-    <mat-tab label="Minhas Marcações">
-      <h2 class="subTitle my-2">Ver Minha Marcações</h2>
+    <mat-tab label="My Appointments">
+      <h2 class="subTitle my-2">View My Appointments</h2>
       <mat-divider></mat-divider>
       <mat-accordion class="mb-2">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Próximas Marcações</mat-panel-title>
+            <mat-panel-title>Upcoming Appointments</mat-panel-title>
           </mat-expansion-panel-header>
           @if (nextClientAppointments$ | async; as nextClientAppointments) {
             @if (nextClientAppointments.length > 0) {
@@ -203,7 +203,7 @@
     <mat-tab label="Deixe a sua opinião">
       <h2 class="subTitle mt-2">
         <i class="fa-solid fa-star" style="color: var(--gold-color);"></i> 
-        Quer ajudar-nos? Deixe a sua opinião sobre a nossa barbearia
+        Want to help us? Leave your review about our barbershop
         <i class="fa-solid fa-star" style="color: var(--gold-color);"></i> 
       </h2>
       <div class="d-flex align-items-center justify-content-center mt-3">
@@ -219,10 +219,10 @@
         <textarea class="form-control text-area" [(ngModel)]="description" rows="3"></textarea>
       </div>
       <div class="mt-2 d-flex align-items-center justify-content-center">
-        <p id="errorMsg">Escreva o que acha da nossa Barbearia!</p>
+        <p id="errorMsg">Write what you think about our barbershop!</p>
       </div>
       <div class="center">
-        <button class="btn-red" (click)="submitReview()">Enviar</button>
+        <button class="btn-red" (click)="submitReview()">Submit</button>
       </div>
     </mat-tab>
   }

@@ -2,7 +2,7 @@
   <h1>Create User</h1>
   <form #createUserForm="ngForm" (ngSubmit)="createUser(createUserForm)">
     <div class="form-group">
-      <label>Nome</label>
+      <label>Name</label>
       <input type="text" name="name" ngModel required />
     </div>
     <div class="form-group">
@@ -14,9 +14,9 @@
       <input type="password" name="password" ngModel required />
       <label></label>
     </div>
-    <button type="submit" [disabled]="createUserForm.invalid">Criar Utilizador</button>
+    <button type="submit" [disabled]="createUserForm.invalid">Create User</button>
     <div id="wrongCredentials" class="mt-2">
-      Pelo menos uma das credenciais está errada
+      At least one of the credentials is incorrect
     </div>
   </form>
 

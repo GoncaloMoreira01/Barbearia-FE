@@ -130,7 +130,7 @@ export class Panel {
     this.testimonialService.createTestimonial(testimonial).subscribe({
       next: response => {
         if (response.status === 201) {
-          this.showPopup('Opinião enviada com sucesso!', 'success-snackbar');
+          this.showPopup('Review successfully submitted!', 'success-snackbar');
         }
       },
       error: err => this.showEndpointError(err)
@@ -159,7 +159,7 @@ export class Panel {
     this.appointementsService.createAppointment(appointmentCreateObject).subscribe({
       next: response => {
         if (response.status === 201) {
-          this.showPopup('Marcação criada com sucesso!', 'success-snackbar');
+          this.showPopup('Appointment created successfully!', 'success-snackbar');
         }
       },
       error: err => this.showEndpointError(err)
@@ -168,15 +168,15 @@ export class Panel {
 
   private showEndpointError(err: HttpErrorResponse) {
     if (err.status === 412) {
-      this.showPopup('Não foi possível concluir o pedido.', 'error-snackbar');
+      this.showPopup('The request could not be completed.', 'error-snackbar');
       return;
     }
 
-    this.showPopup('Ocorreu um erro. Tente novamente.', 'error-snackbar');
+    this.showPopup('An error occurred. Please try again.', 'error-snackbar');
   }
 
   private showPopup(message: string, panelClass: string) {
-    this.snackBar.open(message, 'Fechar', {
+    this.snackBar.open(message, 'Close', {
       duration: 3500,
       horizontalPosition: 'right',
       verticalPosition: 'top',

@@ -1,6 +1,6 @@
 <div class="login-card">
   <h1>Login</h1>
-  <p class="subtitle">Aceda a sua area de marcacoes</p>
+  <p class="subtitle">Access your appointment area</p>
 
   <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
     <div class="form-group">
@@ -12,14 +12,14 @@
       <input type="password" name="password" ngModel required />
       <label></label>
     </div>
-    <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
     <div id="wrongCredentials" class="mt-2">
-      Pelo menos uma das credenciais esta errada
+      At least one of the credentials is incorrect.
     </div>
   </form>
 
   <p class="create-account-text">
-    Nao tem conta? <a routerLink="/create-user">Clique aqui</a>
+    Don't have an account? <a routerLink="/create-user">Click here</a>
   </p>
 
   <span class="footer-text mt-2">2026 The Gentleman's Barber</span>

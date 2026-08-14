@@ -30,19 +30,19 @@ export class CreateUser {
       
       this.createUserService.createUser(createUserObject).subscribe({
         next: (response) => {
-          this.showPopup('Utilizador criado com sucesso!', 'success-snackbar');
+          this.showPopup('User created successfully!', 'success-snackbar');
           this.auth.setUserLogged(response);
           this.router.navigate(['/home']);
         },
         error: (error) => {
-          this.showPopup('Erro ao criar utilizador!', 'error-snackbar');
+          this.showPopup('Error creating user!', 'error-snackbar');
         }
       });
     }
   }
 
   private showPopup(message: string, panelClass: string) {
-    this.snackBar.open(message, 'Fechar', {
+    this.snackBar.open(message, 'Close', {
       duration: 3500,
       horizontalPosition: 'right',
       verticalPosition: 'top',
