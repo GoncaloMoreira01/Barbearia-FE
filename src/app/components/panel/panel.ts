@@ -58,6 +58,7 @@ export class Panel {
   getAvailableDatesForBarberForm!: FormGroup;
   createAppointmentForm!: FormGroup;
   availableSlotsList$!: Observable<string[]>;
+  showBookingDetails = false;
   services = barberServices;
 
   oldClientAppointments$!: Observable<FutureAndOldAppointmentsObject[]>;
@@ -77,6 +78,11 @@ export class Panel {
       serviceId: [''],
       description: [''],
       scheduleHour: ['']
+    });
+
+    this.getAvailableDatesForBarberForm.valueChanges.subscribe(() => {
+      this.showBookingDetails = false;
+      this.createAppointmentForm.get('scheduleHour')?.reset();
     });
 
     if (this.userId !== undefined) {
@@ -99,12 +105,13 @@ export class Panel {
 
   getAvailableDatesForBarber() {
     const barberId = this.getAvailableDatesForBarberForm.get('barberId')?.value;
-    let scheduleDate = this.getAvailableDatesForBarberForm.get('scheduleDate')?.value;
-    scheduleDate = scheduleDate
-      ? scheduleDate.toISOString().split('T')[0]
+    const selectedDate = this.getAvailableDatesForBarberForm.get('scheduleDate')?.value as Date | null;
+    const scheduleDate = selectedDate
+      ? `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`
       : '';
 
     this.availableSlotsList$ = this.appointementsService.getAvailableDatesForBarber(barberId, scheduleDate)
+    this.showBookingDetails = true;
   }
 
   submitReview() {
@@ -144,9 +151,11 @@ export class Panel {
     }
 
     const [hours, minutes] = this.createAppointmentForm.get('scheduleHour')?.value.split(':').map(Number);
-    const buildedScheduleDate = new Date(this.getAvailableDatesForBarberForm.get('scheduleDate')?.value);
-    buildedScheduleDate.setHours(hours, minutes, 0, 0);
-    buildedScheduleDate.toISOString;
+    const selectedDate = this.getAvailableDatesForBarberForm.get('scheduleDate')?.value as Date;
+    const pad = (value: number) => value.toString().padStart(2, '0');
+    const buildedScheduleDate =
+      `${selectedDate.getFullYear()}-${pad(selectedDate.getMonth() + 1)}-${pad(selectedDate.getDate())}` +
+      `T${pad(hours)}:${pad(minutes)}:00`;
 
     const appointmentCreateObject: ApointmentObject = {
       clientId: user.id,
@@ -158,7 +167,7 @@ export class Panel {
 
     this.appointementsService.createAppointment(appointmentCreateObject).subscribe({
       next: response => {
-        if (response.status === 201) {
+        if (response.status >= 200 && response.status < 300) {
           this.showPopup('Appointment created successfully!', 'success-snackbar');
         }
       },

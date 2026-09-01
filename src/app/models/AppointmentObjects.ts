@@ -1,7 +1,9 @@
 export interface ApointmentObject {
   clientId: number;
   barberId: number;
-  scheduleDate: Date;
+  // Appointment times are local wall-clock times, not UTC instants.
+  // Sending an ISO string without a timezone preserves the selected time.
+  scheduleDate: string;
   description: string;
   serviceType: number;
 }
