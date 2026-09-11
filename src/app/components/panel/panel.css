@@ -56,6 +56,10 @@
     max-width: 620px;
 }
 
+.panel-tab-intro {
+    margin-top: 1.5rem;
+}
+
 .booking-eyebrow {
     display: inline-flex;
     align-items: center;

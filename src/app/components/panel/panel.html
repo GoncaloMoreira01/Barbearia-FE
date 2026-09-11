@@ -1,7 +1,11 @@
 <mat-tab-group>
   @if (isBarber) {
     <mat-tab label="Agenda">
-      <h2 class="subTitle mt-2">My Schedule</h2>
+      <div class="booking-intro panel-tab-intro">
+        <span class="booking-eyebrow"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Your calendar</span>
+        <h2>Manage your schedule</h2>
+        <p>Choose a date to view your appointments.</p>
+      </div>
       <div class="toolbar-row">
         <mat-form-field appearance="fill" class="date-field">
           <mat-label>Choose a date</mat-label>
@@ -154,7 +158,11 @@
     </mat-tab>
 
     <mat-tab label="My Appointments">
-      <h2 class="subTitle my-2">View My Appointments</h2>
+      <div class="booking-intro panel-tab-intro">
+        <span class="booking-eyebrow"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Your bookings</span>
+        <h2>Manage your appointments</h2>
+        <p>View your upcoming and past appointments in one place.</p>
+      </div>
       <mat-divider></mat-divider>
       <mat-accordion class="mb-2">
         <mat-expansion-panel>
@@ -239,11 +247,11 @@
 
   
     <mat-tab label="Leave a Review">
-      <h2 class="subTitle mt-2">
-        <i class="fa-solid fa-star" style="color: var(--gold-color);"></i> 
-        Want to help us? Leave your review about our barbershop
-        <i class="fa-solid fa-star" style="color: var(--gold-color);"></i> 
-      </h2>
+      <div class="booking-intro panel-tab-intro">
+        <span class="booking-eyebrow"><i class="fa-solid fa-star" aria-hidden="true"></i> Your feedback</span>
+        <h2>Share your experience</h2>
+        <p>Your review helps us improve and helps other clients choose us.</p>
+      </div>
       <div class="d-flex align-items-center justify-content-center mt-3">
         <div class="star-rating">
             <input type="radio" [value]="1" [(ngModel)]="rating"><i></i>
