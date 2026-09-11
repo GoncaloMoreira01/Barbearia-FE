@@ -191,7 +191,7 @@
                         {{ nextClientAppointment.description }}
                       </p>
                     </div>
-                    <small class="opacity-50 text-nowrap"> {{ nextClientAppointment.scheduleDate | date:'yyyy-MM-dd' }}</small>
+                    <small class="opacity-50 text-nowrap"> {{ nextClientAppointment.scheduleDate | date:'dd-MM-yyyy' }} - {{ nextClientAppointment.scheduleDate | date:'HH:mm' }}</small>
                   </div>
                 </a>
               }
