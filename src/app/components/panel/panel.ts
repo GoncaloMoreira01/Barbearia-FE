@@ -26,7 +26,7 @@ import { Testimonial } from '../../services/testimonial';
 import { User } from '../../services/user';
 import { TestimonialObject } from '../../models/TestimonialObject';
 import { map, startWith  } from 'rxjs/operators';
-import { ApointmentObject, FutureAndOldAppointmentsObject } from '../../models/AppointmentObjects';
+import { ApointmentObject, FutureAndOldAppointmentsObject, AppointmentInfo, UpdateAppointmentObject } from '../../models/AppointmentObjects';
 
 export interface Barber {
   id: number;
@@ -64,6 +64,10 @@ export class Panel {
   oldClientAppointments$!: Observable<FutureAndOldAppointmentsObject[]>;
   nextClientAppointments$!: Observable<FutureAndOldAppointmentsObject[]>;
   barberAppointments$!: Observable<FutureAndOldAppointmentsObject[]>;
+  appointmentBeingEditedId: number | null = null;
+  appointmentBeingCancelledId: number | null = null;
+  appointmentBeingEdited: AppointmentInfo | null = null;
+  selectedTabIndex = 0;
 
   ngOnInit() {
     this.userId = this.auth.getUserLogged()?.id;
@@ -157,7 +161,7 @@ export class Panel {
       `${selectedDate.getFullYear()}-${pad(selectedDate.getMonth() + 1)}-${pad(selectedDate.getDate())}` +
       `T${pad(hours)}:${pad(minutes)}:00`;
 
-    const appointmentCreateObject: ApointmentObject = {
+    const appointmentObject: ApointmentObject = {
       clientId: user.id,
       barberId: this.getAvailableDatesForBarberForm.get('barberId')?.value,
       scheduleDate: buildedScheduleDate,
@@ -165,14 +169,65 @@ export class Panel {
       serviceType: this.createAppointmentForm.get('serviceId')?.value
     };
 
-    this.appointementsService.createAppointment(appointmentCreateObject).subscribe({
+    const request = this.appointmentBeingEdited?.appointmentId
+      ? this.appointementsService.updateAppointment({
+          ...appointmentObject,
+          appointmentId: this.appointmentBeingEdited.appointmentId,
+        } as UpdateAppointmentObject)
+      : this.appointementsService.createAppointment(appointmentObject);
+
+    request.subscribe({
       next: response => {
         if (response.status >= 200 && response.status < 300) {
-          this.showPopup('Appointment created successfully!', 'success-snackbar');
+          const wasEditing = this.appointmentBeingEdited !== null;
+          this.appointmentBeingEdited = null;
+          this.appointmentBeingEditedId = null;
+          this.nextClientAppointments$ = this.appointementsService.getNextClientAppointments(user.id);
+          this.getAvailableDatesForBarberForm.reset();
+          this.createAppointmentForm.reset();
+          this.showBookingDetails = false;
+          this.showPopup(
+            wasEditing ? 'Appointment updated successfully!' : 'Appointment created successfully!',
+            'success-snackbar'
+          );
         }
       },
       error: err => this.showEndpointError(err)
     });
+  }
+
+  editAppointment(appointmentId: number) {
+    this.appointmentBeingEditedId = appointmentId;
+    this.appointmentBeingCancelledId = null;
+
+    this.appointementsService.getAppointmentById(appointmentId).subscribe({
+      next: appointment => {
+        this.appointmentBeingEdited = appointment;
+
+        const scheduleDate = new Date(appointment.scheduleDate);
+        const pad = (value: number) => value.toString().padStart(2, '0');
+
+        this.getAvailableDatesForBarberForm.patchValue({
+          barberId: appointment.barberId,
+          scheduleDate,
+        });
+        this.createAppointmentForm.patchValue({
+          serviceId: appointment.serviceType,
+          description: appointment.description,
+          scheduleHour: `${pad(scheduleDate.getHours())}:${pad(scheduleDate.getMinutes())}`,
+        });
+        this.selectedTabIndex = 0;
+      },
+      error: err => this.showEndpointError(err),
+    });
+  }
+
+  cancelAppointment(appointmentId: number) {
+    this.appointmentBeingCancelledId = appointmentId;
+    this.appointmentBeingEditedId = null;
+
+    // The appointment id is ready to be sent in the cancellation request once its API contract is available.
+    console.info('Cancelling appointment', appointmentId);
   }
 
   private showEndpointError(err: HttpErrorResponse) {

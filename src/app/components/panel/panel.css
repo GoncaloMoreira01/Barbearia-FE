@@ -44,6 +44,43 @@
     max-width: 900px;
 }
 
+.appointment-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: .55rem;
+}
+
+.appointment-action-buttons {
+    display: flex;
+    gap: .45rem;
+}
+
+.appointment-action-button {
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: .35rem .6rem;
+    font-size: .8rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.appointment-edit-button {
+    background: #f2f2f2;
+    border-color: #d9d9d9;
+    color: #333;
+}
+
+.appointment-cancel-button {
+    background: #fff0f0;
+    border-color: #f2bbbb;
+    color: #b02525;
+}
+
+.appointment-action-button:hover {
+    filter: brightness(.96);
+}
+
 /* Booking flow */
 .booking-flow {
     width: min(100% - 2rem, 1100px);
@@ -238,6 +275,10 @@
 
     .booking-submit-button {
         width: 100%;
+    }
+
+    .appointment-actions {
+        align-items: flex-start;
     }
 }
 

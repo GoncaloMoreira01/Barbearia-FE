@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group [(selectedIndex)]="selectedTabIndex">
   @if (isBarber) {
     <mat-tab label="Agenda">
       <div class="booking-intro panel-tab-intro">
@@ -171,8 +171,8 @@
           </mat-expansion-panel-header>
           @if (nextClientAppointments$ | async; as nextClientAppointments) {
             @if (nextClientAppointments.length > 0) {
-              @for (nextClientAppointment of nextClientAppointments; track $index) {
-                <a class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+              @for (nextClientAppointment of nextClientAppointments; track nextClientAppointment.id) {
+                <div class="list-group-item d-flex gap-3 py-3" aria-current="true">
                   <img 
                     [src]="
                       nextClientAppointment.serviceType == 1 ? 'https://www.pngall.com/wp-content/uploads/2016/03/Scissor-PNG-Clipart.png' :
@@ -191,9 +191,29 @@
                         {{ nextClientAppointment.description }}
                       </p>
                     </div>
-                    <small class="opacity-50 text-nowrap"> {{ nextClientAppointment.scheduleDate | date:'dd-MM-yyyy' }} - {{ nextClientAppointment.scheduleDate | date:'HH:mm' }}</small>
+                    <div class="appointment-actions">
+                      <small class="opacity-50 text-nowrap"> {{ nextClientAppointment.scheduleDate | date:'dd-MM-yyyy' }} - {{ nextClientAppointment.scheduleDate | date:'HH:mm' }}</small>
+                      <div class="appointment-action-buttons">
+                        <button
+                          type="button"
+                          class="appointment-action-button appointment-edit-button"
+                          (click)="editAppointment(nextClientAppointment.id)"
+                          [attr.aria-label]="'Edit appointment ' + nextClientAppointment.id"
+                        >
+                          <i class="fa-solid fa-pen" aria-hidden="true"></i> Edit
+                        </button>
+                        <button
+                          type="button"
+                          class="appointment-action-button appointment-cancel-button"
+                          (click)="cancelAppointment(nextClientAppointment.id)"
+                          [attr.aria-label]="'Cancel appointment ' + nextClientAppointment.id"
+                        >
+                          <i class="fa-solid fa-xmark" aria-hidden="true"></i> Cancel
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </a>
+                </div>
               }
             } @else {
                 <div class="text-center py-4 text-muted">

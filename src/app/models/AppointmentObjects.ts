@@ -9,8 +9,21 @@ export interface ApointmentObject {
 }
 
 export interface FutureAndOldAppointmentsObject {
+  id: number;
   barberName: string;
   scheduleDate: Date;
   description: string;
   serviceType: number;
+}
+
+export interface AppointmentInfo {
+  appointmentId: number;
+  barberId: number;
+  scheduleDate: Date;
+  description: string;
+  serviceType: number;
+}
+
+export interface UpdateAppointmentObject extends ApointmentObject {
+  appointmentId: number;
 }

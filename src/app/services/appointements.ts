@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiEndpoints } from '../constants/ApiEndpointsEnum';
 import { HttpClient } from '@angular/common/http';
-import { ApointmentObject, FutureAndOldAppointmentsObject } from '../models/AppointmentObjects';
+import { ApointmentObject, FutureAndOldAppointmentsObject, AppointmentInfo, UpdateAppointmentObject } from '../models/AppointmentObjects';
 
 
 @Injectable({
@@ -26,6 +26,13 @@ export class Appointements {
     });
   }
 
+  updateAppointment(appointmentUpdateObject: UpdateAppointmentObject) {
+    return this.http.put(ApiEndpoints.PUT_UPDATE_APPOINTMENT, appointmentUpdateObject, {
+      observe: 'response',
+      responseType: 'text',
+    });
+  }
+
   getOldClientAppointments(clientId: number) {
     return this.http.get<FutureAndOldAppointmentsObject[]>(ApiEndpoints.GET_OLD_CLIENT_APPOINTMENTS, {
       params: {
@@ -41,6 +48,15 @@ export class Appointements {
       }
     });
   }
+
+  getAppointmentById(appointmentId: number) {
+  return this.http.get<AppointmentInfo>(ApiEndpoints.GET_APPOINTMENT_BY_ID, {
+      params: {
+        id: appointmentId,
+      },
+    }
+  );
+}
 
   getBarberAppointments(barberId: number, scheduleDate: Date) {
     return this.http.get<FutureAndOldAppointmentsObject[]>(ApiEndpoints.GET_BARBER_APPOINTMENTS, {
