@@ -293,3 +293,29 @@
     </mat-tab>
   }
 </mat-tab-group>
+
+@if (appointmentPendingCancellationId !== null) {
+  <div class="appointment-confirmation-backdrop" role="presentation" (click)="dismissCancellation()">
+    <section
+      class="appointment-confirmation-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cancel-appointment-title"
+      aria-describedby="cancel-appointment-description"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="appointment-confirmation-icon" aria-hidden="true">
+        <i class="fa-solid fa-calendar-xmark"></i>
+      </div>
+      <span class="booking-eyebrow">Cancel booking</span>
+      <h2 id="cancel-appointment-title">Cancel this appointment?</h2>
+      <p id="cancel-appointment-description">Are you sure you want to cancel this appointment? This action cannot be undone.</p>
+      <div class="appointment-confirmation-actions">
+        <button type="button" class="appointment-confirmation-dismiss" (click)="dismissCancellation()">Keep appointment</button>
+        <button type="button" class="appointment-confirmation-delete" (click)="confirmCancellation()">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i> Yes, cancel it
+        </button>
+      </div>
+    </section>
+  </div>
+}

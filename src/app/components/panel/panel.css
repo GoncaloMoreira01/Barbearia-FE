@@ -81,6 +81,90 @@
     filter: brightness(.96);
 }
 
+.appointment-confirmation-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    display: grid;
+    place-items: center;
+    padding: 1.25rem;
+    background: rgba(27, 20, 20, .55);
+    backdrop-filter: blur(3px);
+}
+
+.appointment-confirmation-modal {
+    width: min(100%, 430px);
+    padding: 2rem;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #f2bbbb;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(40, 21, 21, .28);
+    animation: appointment-confirmation-enter .18s ease-out;
+}
+
+.appointment-confirmation-icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin: 0 auto .85rem;
+    color: #b02525;
+    font-size: 1.35rem;
+    background: #fff0f0;
+    border-radius: 50%;
+}
+
+.appointment-confirmation-modal h2 {
+    margin: .45rem 0 .65rem;
+    color: #242424;
+    font-size: 1.45rem;
+    font-weight: 750;
+}
+
+.appointment-confirmation-modal p {
+    margin: 0;
+    color: #676767;
+    line-height: 1.55;
+}
+
+.appointment-confirmation-actions {
+    display: flex;
+    justify-content: center;
+    gap: .7rem;
+    margin-top: 1.6rem;
+}
+
+.appointment-confirmation-actions button {
+    border-radius: 8px;
+    padding: .7rem 1rem;
+    font-size: .88rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.appointment-confirmation-dismiss {
+    color: #444;
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+}
+
+.appointment-confirmation-delete {
+    color: #fff;
+    background: var(--red-color);
+    border: 1px solid var(--red-color);
+    box-shadow: 0 5px 12px rgba(201, 42, 42, .24);
+}
+
+.appointment-confirmation-actions button:hover {
+    filter: brightness(.96);
+}
+
+@keyframes appointment-confirmation-enter {
+    from { opacity: 0; transform: translateY(8px) scale(.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 /* Booking flow */
 .booking-flow {
     width: min(100% - 2rem, 1100px);

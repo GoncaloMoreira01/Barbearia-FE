@@ -33,6 +33,16 @@ export class Appointements {
     });
   }
 
+  deleteAppointment(appointmentId: number) {
+    return this.http.delete(ApiEndpoints.DELETE_APPOINTMENT, {
+      params: {
+        id: appointmentId
+      },
+      observe: 'response',
+      responseType: 'text',
+    });
+  }
+
   getOldClientAppointments(clientId: number) {
     return this.http.get<FutureAndOldAppointmentsObject[]>(ApiEndpoints.GET_OLD_CLIENT_APPOINTMENTS, {
       params: {

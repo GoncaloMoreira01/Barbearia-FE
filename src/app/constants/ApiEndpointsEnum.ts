@@ -15,4 +15,5 @@ export const ApiEndpoints = {
   GET_NEXT_CLIENT_APPOINTMENTS: 'http://localhost:8080/barbershop/appointments/getNextClientAppointments',
   GET_APPOINTMENT_BY_ID: 'http://localhost:8080/barbershop/appointments/getAppointmentById',
   GET_BARBER_APPOINTMENTS: 'http://localhost:8080/barbershop/appointments/getBarberAppointments',
+  DELETE_APPOINTMENT: 'http://localhost:8080/barbershop/appointments/deleteAppointment',
 };

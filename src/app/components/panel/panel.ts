@@ -66,6 +66,7 @@ export class Panel {
   barberAppointments$!: Observable<FutureAndOldAppointmentsObject[]>;
   appointmentBeingEditedId: number | null = null;
   appointmentBeingCancelledId: number | null = null;
+  appointmentPendingCancellationId: number | null = null;
   appointmentBeingEdited: AppointmentInfo | null = null;
   selectedTabIndex = 0;
 
@@ -223,11 +224,36 @@ export class Panel {
   }
 
   cancelAppointment(appointmentId: number) {
+    this.appointmentPendingCancellationId = appointmentId;
+  }
+
+  dismissCancellation() {
+    this.appointmentPendingCancellationId = null;
+  }
+
+  confirmCancellation() {
+    const appointmentId = this.appointmentPendingCancellationId;
+    if (appointmentId === null) {
+      return;
+    }
+
+    this.appointmentPendingCancellationId = null;
     this.appointmentBeingCancelledId = appointmentId;
     this.appointmentBeingEditedId = null;
 
-    // The appointment id is ready to be sent in the cancellation request once its API contract is available.
-    console.info('Cancelling appointment', appointmentId);
+    this.appointementsService.deleteAppointment(appointmentId).subscribe({
+      next: response => {
+        if (response.status >= 200) {
+          this.nextClientAppointments$ = this.appointementsService.getNextClientAppointments(this.userId);
+          this.appointmentBeingCancelledId = null;
+          this.showPopup('Appointment cancelled successfully!', 'success-snackbar');
+        }
+      },
+      error: err => {
+        this.appointmentBeingCancelledId = null;
+        this.showEndpointError(err);
+      }
+    });
   }
 
   private showEndpointError(err: HttpErrorResponse) {
