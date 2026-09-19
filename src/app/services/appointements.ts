@@ -69,10 +69,16 @@ export class Appointements {
 }
 
   getBarberAppointments(barberId: number, scheduleDate: Date) {
+    const localScheduleDate = [
+      scheduleDate.getFullYear(),
+      String(scheduleDate.getMonth() + 1).padStart(2, '0'),
+      String(scheduleDate.getDate()).padStart(2, '0'),
+    ].join('-');
+
     return this.http.get<FutureAndOldAppointmentsObject[]>(ApiEndpoints.GET_BARBER_APPOINTMENTS, {
       params: {
         barberId: barberId,
-        scheduleDate: scheduleDate.toISOString().split('T')[0]
+        scheduleDate: localScheduleDate,
       }
     });
   }

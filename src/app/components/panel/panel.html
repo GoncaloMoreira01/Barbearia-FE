@@ -6,16 +6,30 @@
         <h2>Manage your schedule</h2>
         <p>Choose a date to view your appointments.</p>
       </div>
-      <div class="toolbar-row">
-        <mat-form-field appearance="fill" class="date-field">
-          <mat-label>Choose a date</mat-label>
-          <input matInput [matDatepicker]="pickerAgenda" [(ngModel)]="selectedDate">
-          <mat-datepicker-toggle matSuffix [for]="pickerAgenda"></mat-datepicker-toggle>
-          <mat-datepicker #pickerAgenda></mat-datepicker>
-        </mat-form-field>
+      <section class="booking-flow agenda-flow">
+        <div class="booking-card booking-search-card">
+          <div class="booking-step">
+            <span>1</span>
+            <div>
+              <h3>View your day</h3>
+              <p>Select a date to see the appointments in your agenda.</p>
+            </div>
+          </div>
+          <div class="booking-search-fields">
+            <mat-form-field appearance="outline" class="date-field">
+              <mat-label>Preferred date</mat-label>
+              <input matInput [matDatepicker]="pickerAgenda" [(ngModel)]="selectedDate">
+              <mat-datepicker-toggle matSuffix [for]="pickerAgenda"></mat-datepicker-toggle>
+              <mat-datepicker #pickerAgenda></mat-datepicker>
+            </mat-form-field>
 
-        <button class="btn-red" (click)="getBarberAppointmentsByDate()">Click me</button>
-      </div>
+            <button type="button" class="btn-red booking-search-button" (click)="getBarberAppointmentsByDate()">
+              <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+              View appointments
+            </button>
+          </div>
+        </div>
+      </section>
       <mat-divider></mat-divider>
       <div class="barber-appointments-wrapper d-flex flex-column flex-md-row p-4 gap-4 py-md-5 justify-content-center">
         <div class="list-group barber-appointments-list">
