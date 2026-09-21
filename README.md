@@ -1,4 +1,4 @@
-💈 Barbershop-FE  **(Work in Progress)**
+💈 Barbershop-FE
 ===============
 
 Frontend web application for managing **barbershop appointments**, built with **Angular**. The platform allows customers to schedule services, view appointment history, and leave feedback, while barbers can manage their schedules and see upcoming bookings.
@@ -21,20 +21,20 @@ This project demonstrates **role-based access control, reactive programming with
 
 *   Schedule new appointments
     
-*   View **upcoming appointments**
+*   View upcoming appointments
+
+*   View past appointment history
     
-*   View **past appointment history**
-    
-*   Manage personal bookings **(coming soon)**
+*   Manage personal bookings
     
 
 ### 👤 Client Features
 
-*   Create and manage appointments **(manage coming soon)**
+*   Create and manage appointments
     
 *   View previous services
     
-*   Leave feedback after appointments
+*   Leave a review of the barbershop by rating it from 1 to 5 stars and adding a comment. Both rating and comment will appear on the homepage.
     
 
 ### ✂️ Barber Features
@@ -76,7 +76,8 @@ This project demonstrates **role-based access control, reactive programming with
     
 *   **REST API Integration**
 
-⚠️ Project Status
+*   **Docker**
+
+✅ Project Status
 =====================
-This project is currently under active development. 
-New features such as appointment history and appointment management are being implemented.
+This project is complete. However, suggestions, feedback, and improvements are always welcome and may be considered in the future.
