@@ -9,7 +9,7 @@
 <section class="hero-section py-5">
   <div class="container text-center">
 
-    <img class="hero-logo mb-4" src="/images/logo.png" alt="Logótipo da barbearia The Gentleman’s Barber" width="220" height="220">
+    <img class="hero-logo mb-4" src="/images/logo.png" alt="The Gentleman’s Barber logo" width="220" height="220">
     <h1 class="hero-title mt-3">The Gentleman’s Barber</h1>
     <p class="hero-subtitle mb-5">
       More than a barbershop — a classic and sophisticated experience.
@@ -28,7 +28,7 @@
             The passion for the craft, continuous training of the team, and the use of premium products
             reflect our commitment to excellence. More than a barbershop,
             we are a meeting point for men who value style, authenticity
-            e uma experiência cuidada ao detalhe.
+            and a carefully crafted experience down to every detail.
           </p>
           <div class="mt-5">
             <button class="buttonSchedule" type="button" [routerLink]="auth.isUserLoggedIn() ? '/panel' : '/login'">Schedule Now</button>
@@ -60,7 +60,7 @@
           </div>
         } @else {
           <div class="testimonial-card">
-            <p class="message">Ainda ninguém deu uma avaliação, sê o primeiro!</p>
+            <p class="message">No reviews yet. Be the first to leave one!</p>
           </div>
         }
       </div>

@@ -14,7 +14,7 @@ export class Navbar {
 
   logout() {
     this.auth.logout();
-    this.snackBar.open('Logout efetuado com sucesso!', 'Fechar', {
+    this.snackBar.open('You have logged out successfully.', 'Close', {
       duration: 3500,
       horizontalPosition: 'right',
       verticalPosition: 'top',
