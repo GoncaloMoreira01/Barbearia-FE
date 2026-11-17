@@ -48,7 +48,9 @@
   <h4 class="quote-icon">&ldquo;</h4>
   <div class="testimonial-slider">
     @if (testimonials$ | async; as testimonials) {
-      <button class="arrow left" (click)="prev(testimonials.length)"> &#10094; </button>
+      @if (testimonials.length > 1) {
+        <button class="arrow left" type="button" aria-label="Previous review" (click)="prev(testimonials.length)"> &#10094; </button>
+      }
       <div class="testimonial-wrapper">
         @if (testimonials.length > 0) {
           <div class="testimonial-card">
@@ -64,7 +66,9 @@
           </div>
         }
       </div>
-      <button class="arrow right" (click)="next(testimonials.length)"> &#10095; </button>
+      @if (testimonials.length > 1) {
+        <button class="arrow right" type="button" aria-label="Next review" (click)="next(testimonials.length)"> &#10095; </button>
+      }
     }
   </div>
 </section>

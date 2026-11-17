@@ -15,8 +15,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgb(25, 28, 31);
-  /** background: rgb(39, 43, 48); **/
+  background: rgba(25, 28, 31, 0.58);
 }
 
 .banner-content {

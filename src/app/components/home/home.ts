@@ -34,10 +34,12 @@ export class Home implements OnInit {
   }
 
   next(total: number) {
+    if (total < 1) return;
     this.currentIndex = (this.currentIndex + 1) % total;
   }
   
   prev(total: number) {
+    if (total < 1) return;
     this.currentIndex = (this.currentIndex - 1 + total) % total;
   }
 }
